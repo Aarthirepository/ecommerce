@@ -8,6 +8,10 @@ const cartRouter = require('./routes/cart')
  app.use('/products', productRouter)
  app.use('/cart', cartRouter)
 
+ app.use((req, res) => {
+   res.status(404).send("404 - Page Not Found");
+ });
+
 app.listen(3000, ()=>{
     console.log("Server is running")
 })
