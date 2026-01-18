@@ -1,16 +1,32 @@
+
+ const {sendError}= require('../utils/response')
+
 const getUserDetails = (req, res) => {
-  res.send("Fetching all users");
+    try {
+      res.send("Fetching all users");
+    } catch (err) {
+      sendError(err, res);
+    }
 };
 
 
 const postUserDetails = (req,res)=>{
-     res.send("Adding a new user.")
-
+     try {
+       res.send("Adding a new user.");
+     } catch (err) {
+       sendError(err, res);
+     }
 }
 
 const getUserById = (req,res)=>{
-       const  id = req.params.id
-       res.send(`Fetching user with ID: ${id}`);
+     try {
+       const { id } = req.params;
+       if (!id) throw new Error("User ID is required");
+
+       res.json({ success: true, data: { id, name: "John Doe" } });
+     } catch (err) {
+       sendError(err, res);
+     }
 }
 module.exports ={
     getUserDetails,

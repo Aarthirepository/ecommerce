@@ -1,36 +1,60 @@
 const productService = require("../services/productServices")
 
-
+const {sendError}= require('../utils/response')
 
 
 const getProducts = (req, res) => {
- const result = productService.getProduct()
- res.send(result)
+  try {
+    const result = productService.getProduct();
+    res.json({ success: true, data: result });
+  } catch (err) {
+    sendError(err, res);
+  }
 };
 
 
 const postProduct = (req, res) => {
- const result = productService.postProduct()
- res.send(result)
+try {
+  const result = productService.postProduct();
+  res.json({ success: true, data: result });
+} catch (err) {
+  sendError(err, res);
+}
 };
 
 
 const getProductById = (req, res) => {
-  const {id} = req.params
-  const result = productService.getProductById(id)
-  res.send(result)
+  try {
+    const { id } = req.params;
+    if (!id) throw new Error("Product ID is required");
+
+    const result = productService.getProductById(id);
+    res.json({ success: true, data: result });
+  } catch (err) {
+    sendError(err, res);
+  }
 };
 
 
 
+
+
 const editProduct = (req,res)=>{
-   const result = productService.editProduct()
-   res.send(result)
+   try {
+     const result = productService.editProduct();
+     res.json({ success: true, data: result });
+   } catch (err) {
+     sendError(err, res);
+   }
 }
 
 const deleteProduct = (req,res)=>{
-    const result = productService.deleteProduct()
-    res.send(result)
+   try {
+     const result = productService.deleteProduct();
+     res.json({ success: true, data: result });
+   } catch (err) {
+     sendError(err, res);
+   }
 }
 
 
